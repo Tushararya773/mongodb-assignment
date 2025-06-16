@@ -1,0 +1,167 @@
+name : Tushar arya 
+Section : C 
+1. Store – Product & Orders  
+// User Schema 
+const user = { 
+name: { type: String, required: true }, 
+email: {  
+type: String,  
+required: true,  
+unique: true, 
+}, 
+password: { type: String, required: true }, 
+createdAt: { type: Date, default: Date.now } 
+}; 
+// Product Schema 
+const product = { 
+title: { type: String, required: true }, 
+description: { type: String, required: true }, 
+price: { type: Number, required: true, min: 0 }, 
+category: { type: String, required: true }, 
+stock: { type: Number, required: true, min: 0 }, 
+createdAt: { type: Date, default: Date.now } 
+}; 
+// Order Schema 
+const order = { 
+userId: { type: ObjectId, required: true, ref: 'User' }, 
+products: [{ 
+productId: { type: ObjectId, required: true, ref: 'Product' }, 
+quantity: { type: Number, required: true, min: 1 } 
+}], 
+totalAmount: { type: Number, required: true, min: 0 }, 
+orderDate: { type: Date, default: Date.now }, 
+status: { type: String, enum: ['pending', 'shipped', 'delivered', 'cancelled'] } 
+}; 
+// Review Schema 
+const review = { 
+userId: { type: ObjectId, required: true, ref: 'User' }, 
+productId: { type: ObjectId, required: true, ref: 'Product' }, 
+rating: { type: Number, required: true, min: 1, max: 5 }, 
+comment: {type: String}, 
+createdAt: {type: Date, default: Date.now } 
+}; 
+2. Online Course Platform – Instructors & Students 
+    
+// User Schema 
+const user = { 
+  name: { type: String, required: true }, 
+  email: {  
+    type: String,  
+    required: true,  
+    unique: true 
+     
+  }, 
+  role: { type: String, required: true, enum: ['student', 'instructor'] }, 
+  createdAt: { type: Date, default: Date.now } 
+}; 
+  
+// Course Schema 
+const course = { 
+  title: { type: String, required: true }, 
+  instructorId: { type: ObjectId, required: true, ref: 'User' }, 
+  category: { type: String, required: true }, 
+  price: { type: Number, required: true, min: 0 }, 
+  createdAt: { type: Date, default: Date.now }, 
+  lessons: [{ 
+    title: { type: String, required: true }, 
+    videoURL: { type: String, required: true }, 
+    duration: { type: Number, required: true, min: 1 } // in minutes 
+  }] 
+}; 
+   
+// Enrollment Schema 
+const enrollment = { 
+  userId: { type: ObjectId, required: true, ref: 'User' }, 
+  courseId: { type: ObjectId, required: true, ref: 'Course' }, 
+  enrolledAt: { type: Date, default: Date.now }, 
+  progress: { type: Number, default: 0, min: 0, max: 100 } 
+}; 
+  
+  
+3. Event Booking System – Organizers & Attendees 
+// Author Schema 
+const author = { 
+  name: { type: String, required: true }, 
+  email: {  
+    type: String,  
+    required: true,  
+    unique: true, 
+    
+  }, 
+  bio: { type: String }, 
+  createdAt: { type: Date, default: Date.now } 
+}; 
+  
+// Article Schema 
+const article = { 
+title: { type: String, required: true }, 
+content: { type: String, required: true }, 
+authorId: { type: ObjectId, required: true, ref: 'Author' }, 
+tags: [{ type: String }], 
+published: { type: Boolean, default: false }, 
+createdAt: { type: Date, default: Date.now }, 
+updatedAt: { type: Date } 
+}; 
+// Comment Schema 
+const comment = { 
+articleId: { type: ObjectId, required: true, ref: 'Article' }, 
+userName: { type: String, required: true }, 
+commentText: { type: String, required: true }, 
+postedAt: { type: Date, default: Date.now } 
+}; 
+4. Blogging Platform – Authors & Articles 
+// Author Schema 
+const author = { 
+name: { type: String, required: true }, 
+email: {  
+type: String,  
+required: true,  
+unique: true, 
+}, 
+bio: { type: String }, 
+createdAt: { type: Date, default: Date.now } 
+}; 
+// Article Schema 
+const article = { 
+title: { type: String, required: true }, 
+content: { type: String, required: true }, 
+authorId: { type: ObjectId, required: true, ref: 'Author' }, 
+tags: [{ type: String }], 
+published: { type: Boolean, default: false }, 
+createdAt: { type: Date, default: Date.now }, 
+updatedAt: { type: Date } 
+}; 
+// Comment Schema 
+const comment = { 
+articleId: { type: ObjectId, required: true, ref: 'Article' }, 
+userName: { type: String, required: true }, 
+commentText: { type: String, required: true }, 
+postedAt: { type: Date, default: Date.now } 
+}; 
+5. Subscription App – Users & Plans 
+// User Schema 
+const user = { 
+name: { type: String, required: true }, 
+email: {  
+type: String,  
+required: true,  
+unique: true 
+}, 
+signupDate: { type: Date, default: Date.now } 
+}; 
+// Plan Schema 
+const plan = { 
+name: { type: String, required: true }, 
+price: { type: Number, required: true, min: 0 }, 
+features: [{ type: String }], 
+billingCycle: { type: String, required: true, enum: ['monthly', 'yearly'] }, 
+createdAt: { type: Date, default: Date.now } 
+}; 
+// Subscription Schema 
+const subscription = { 
+userId: { type: ObjectId, required: true, ref: 'User' }, 
+planId: { type: ObjectId, required: true, ref: 'Plan' }, 
+startDate: { type: Date, required: true }, 
+endDate: { type: Date }, 
+isActive: { type: Boolean, default: true } 
+}; 
